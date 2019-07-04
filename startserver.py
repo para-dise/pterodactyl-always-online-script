@@ -16,4 +16,5 @@ while True:
             print("\33[33m[Notice] \33[37m> \33[32mServer successfully started.")
         else:
             print("\33[33m[Notice] \33[37m> \33[31mGot a different response. [%s] with [%s]" % (r.status_code, r.text))
+    print("\33[33m[Notice] \33[37m> \33[32mSleeping...")
     slp(120) #amount of seconds to sleep
