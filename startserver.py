@@ -1,5 +1,6 @@
 import requests
 from time import sleep as slp
+import json
 
 headers = {
         "Authorization": "Bearer YOUR_API_KEY", #get your api key from https://panel.your.host/account/api
@@ -14,7 +15,15 @@ while True:
         r = requests.post('{}/api/client/servers/{}/power'.format(baseurl, server), json={"signal": "start"}, headers=headers)
         if r.text == "":
             print("\33[33m[Notice] \33[37m> \33[32mServer successfully started.")
+        elif "500" in r.text:
+            try:
+                res = r.json()
+                errormsg = innerjson[0]["errors"][0]["code"]
+                if errormsg == "UnexpectedValueException":
+                    print("\33[33m[Notice] \33[37m> \033[91mYour host returned an error. It's likely a matter of waiting.")
+            except:
+                print("\33[33m[Notice] \33[37m> \33[31mGot a different response. [%s] with [%s]" % (r.status_code, r.text))
         else:
             print("\33[33m[Notice] \33[37m> \33[31mGot a different response. [%s] with [%s]" % (r.status_code, r.text))
-    print("\33[33m[Notice] \33[37m> \33[32mSleeping...")
+    print("\33[33m[Notice] \33[37m> \33[32mSleeping for 120 seconds, don't panic, just wait...")
     slp(120) #amount of seconds to sleep
