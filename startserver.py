@@ -1,6 +1,7 @@
 import requests
 from time import sleep as slp
 import json
+import colorama
 
 headers = {
         "Authorization": "Bearer YOUR_API_KEY", #get your api key from https://panel.your.host/account/api
