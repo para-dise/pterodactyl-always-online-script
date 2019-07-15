@@ -19,7 +19,7 @@ while True:
         elif "500" in r.text:
             try:
                 res = r.json()
-                errormsg = innerjson[0]["errors"][0]["code"]
+                errormsg = res[0]["errors"][0]["code"]
                 if errormsg == "UnexpectedValueException":
                     print("\33[33m[Notice] \33[37m> \033[91mYour host returned an error. It's likely a matter of waiting.")
             except:
